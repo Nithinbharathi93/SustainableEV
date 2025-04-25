@@ -1,0 +1,572 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: flex-start; /* Align content to the top */
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 1rem 0; /* Add some vertical padding */
+  box-sizing: border-box; /* Include padding in width/height calculation */
+}
+
+h1 {
+  font-size: 2.5em; /* Slightly smaller base size for mobile */
+  line-height: 1.1;
+  text-align: center; /* Center heading */
+  margin-bottom: 1.5rem; /* Add some space below */
+  width: 90%; /* Prevent overflow on small screens */
+  max-width: 600px; /* Limit width on larger screens */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.87); /* Ensure button text color is set */
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Light Mode Styles */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+    color: #213547; /* Ensure button text color contrasts in light mode */
+  }
+  .main-form,
+  .info-section,
+  .optimization-section,
+  .recommendation-section {
+    background-color: #f9fafb; /* Light mode background for sections */
+    border: 1px solid #e5e7eb; /* Light mode border */
+    color: #1f2937; /* Adjust text color for sections */
+  }
+  .form-label,
+  .info-title,
+  .section-title,
+  .percentage,
+  .range-status,
+  .range-value,
+  .recommendation-title,
+  .route-duration,
+  .route-distance {
+     color: #111827; /* Darker text for titles/emphasis */
+  }
+  .form-input {
+     background-color: #ffffff;
+     color: #111827;
+     border: 1px solid #d1d5db;
+  }
+  .form-input:focus {
+     border-color: #3b82f6;
+     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* Adjust shadow opacity */
+  }
+  .info-text,
+  .date-time,
+  .summary,
+  .recommendation-text,
+  .route-name {
+     color: #4b5563; /* Slightly lighter text for details */
+  }
+  .charge-recommendation {
+     background-color: rgba(0, 0, 0, 0.05);
+     color: #374151;
+  }
+   .circle-wrap, .circle::before {
+       background: #e5e7eb; /* Light mode background for circle */
+   }
+   .circle::before {
+      /* Adjust conic gradient for light mode if needed, maybe lighter green/gray */
+       background: conic-gradient(#10b981 0% 65%, #e5e7eb 65% 100%); /* Example adjustment */
+   }
+   .inside-circle {
+       background: #f9fafb; /* Match section background */
+   }
+   .warning-icon {
+     color: #f59e0b; /* Adjust warning color if needed */
+   }
+   .submit-button {
+     /* Adjust submit button for light mode if needed */
+     /* background-color: #3b82f6; /* Already set */
+     /* color: #ffffff; /* Already set */
+   }
+   .submit-button:hover {
+      /* background-color: #2563eb; /* Already set */
+   }
+   .submit-button:disabled {
+     background-color: #9ca3af; /* Lighter disabled bg */
+     color: #e5e7eb;
+   }
+   .submit-button.loading-animation:disabled {
+      background-color: #9ca3af; /* Match disabled bg */
+   }
+}
+
+/* --- Component Styles --- */
+
+/* Common styles for main content sections */
+.main-form,
+.info-section,
+.optimization-section,
+.recommendation-section {
+  padding: 24px;
+  border-radius: 8px;
+  background-color: #1f2937;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #4b5563;
+  margin: 20px auto; /* Vertical margin and auto horizontal margins for centering */
+  width: 90%; /* Responsive width */
+  max-width: 400px; /* Maximum width */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* MainForm.css */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #f3f4f6;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  width: 100%; /* Take full width of container */
+  padding: 8px 12px; /* Adjusted padding */
+  border-radius: 6px;
+  background-color: #374151;
+  color: #ffffff;
+  border: 1px solid #4b5563;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.form-col {
+  flex: 1; /* Allow columns to grow */
+  min-width: 120px; /* Minimum width before wrapping */
+  /* width: 100%; /* Removed, flex-basis handles this better */
+}
+
+/* Info Section Styles */
+.info-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.info-text {
+  font-size: 1rem;
+  color: #d1d5db;
+  line-height: 1.5rem;
+}
+
+/* Optimization Assistant Styles */
+.optimization-section {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.date-time {
+  font-size: 0.875rem;
+  color: #cbd5e0;
+  margin-bottom: 1.5rem;
+}
+
+.range-info {
+  display: flex;
+  flex-direction: column; /* Stack circle and text on small screens */
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1.5rem; /* Gap between circle and text */
+}
+
+.circle-wrap {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  /* margin: 0 auto; Removed, handled by flex container */
+  background: #374151;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevent circle from shrinking */
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  background-color: #374151; /* Fallback background */
+}
+
+/* Conic gradient for the progress */
+.circle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Example: 65% progress */
+  background: conic-gradient(#4ade80 0% 65%, #374151 65% 100%);
+  z-index: 1;
+   /* Consider adding a variable here if the percentage is dynamic via JS */
+   /* --progress-percent: 65%; */
+   /* background: conic-gradient(#4ade80 0% var(--progress-percent), #374151 var(--progress-percent) 100%); */
+}
+
+.inside-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #1f2937;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.percentage {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Note: The .mask and .fill structure for older browser progress circles is complex */
+/* and often replaced by the simpler conic-gradient or SVG solutions. */
+/* If conic-gradient is sufficient, you might remove .mask and .fill rules. */
+/* Keeping them for now based on original code. */
+.mask {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  z-index: 1; /* Ensure mask is above the base circle color */
+}
+.mask.full { right: 0; }
+.mask.half { left: 0; }
+.fill {
+  width: 100%;
+  height: 100%;
+  /* background-image: linear-gradient(to bottom, #4ade80, #22c55e); */
+  background: #4ade80; /* Simpler background */
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* Example rotation for ~90% (162deg / 180deg * 100 = 90%) */
+/* This part usually requires JavaScript to set the rotation dynamically */
+.mask.full .fill { transform: rotate(180deg); } /* Covers right half */
+.mask.half .fill { transform: rotate(162deg); } /* Rotates within left half */
+
+
+.text-info {
+  text-align: center;
+}
+
+.range-status {
+  font-size: 0.8rem; /* Consider using rem for scalability */
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.range-value {
+  font-size: 0.8rem; /* Consider using rem */
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.charge-recommendation {
+  font-size: 0.75rem; /* Adjusted size */
+  color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.5rem; /* Adjusted padding */
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  display: inline-flex; /* Use inline-flex to fit content */
+  align-items: center;
+  gap: 0.25rem; /* Adjusted gap */
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.warning-icon {
+  font-size: 0.85rem; /* Adjusted size */
+  color: #fde047;
+  flex-shrink: 0; /* Prevent icon shrinking */
+}
+
+.summary {
+  font-size: 0.875rem; /* Adjusted size */
+  color: #d1d5db;
+  margin-top: 1rem;
+  text-align: center;
+  line-height: 1.4; /* Improve readability */
+}
+
+/* Charger Recommendation UI */
+.recommendation-title {
+  font-size: 1.125rem; /* Adjusted size */
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.recommendation-text {
+  font-size: 0.875rem;
+  color: #d1d5db;
+  line-height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.route-info {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Stretch items to fill width */
+  gap: 1rem;
+}
+
+.map-frame {
+  width: 100%;
+  height: 200px; /* Keep fixed height or make aspect ratio */
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1px solid #4b5563; /* Add border for visibility */
+  background-color: #374151; /* Placeholder background */
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove iframe border */
+}
+
+.route-details, .route-details-center {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 0.5rem 1rem; /* Row and column gap */
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.route-details-center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem; /* Adjust gap for centered items */
+}
+
+.route-duration {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  flex-basis: 100%; /* Take full width when wrapping */
+  text-align: center; /* Center if wrapped */
+}
+
+.route-name {
+  font-size: 0.90rem;
+  font-weight: 600;
+  color: #cbd5e0;
+  /* Allow name to take more space if needed */
+  flex-basis: 100%; /* Take full width when wrapping */
+  text-align: center; /* Center if wrapped */
+}
+
+.route-distance {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  flex-basis: 100%; /* Take full width when wrapping */
+  text-align: center; /* Center if wrapped */
+}
+
+/* Submit Button Styles (Consolidated) */
+.submit-button {
+  width: 100%; /* Make button full width within its container */
+  padding: 12px 24px;
+  border-radius: 6px;
+  background-color: #3b82f6; /* Blue */
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  border: none;
+  font-size: 1rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.submit-button:hover {
+  background-color: #2563eb; /* Darker blue */
+}
+
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Focus ring */
+}
+
+.submit-button:disabled {
+  background-color: #374151; /* Use a gray from the palette */
+  color: #9ca3af; /* Lighter text for disabled */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Loading Animation */
+.submit-button.loading-animation:disabled {
+  opacity: 1; /* Override disabled opacity for animation */
+  background-color: #3b82f6; /* Keep original color during load? Or specific loading color? */
+  animation: brightDim 1.5s infinite alternate;
+}
+
+@keyframes brightDim {
+  from {
+    opacity: 1; /* Fully bright */
+  }
+  to {
+    opacity: 0.6; /* Slightly dim */
+  }
+}
+
+/* --- Responsive Adjustments --- */
+
+/* Stack form columns on very small screens */
+@media (max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+    gap: 16px; /* Maintain gap when stacked */
+  }
+  .form-col {
+     min-width: 100%; /* Ensure full width when stacked */
+  }
+
+  .route-details {
+    flex-direction: column; /* Stack route details */
+    align-items: center; /* Center align when stacked */
+    gap: 0.75rem;
+  }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 600px) {
+  .main-form,
+  .info-section,
+  .optimization-section,
+  .recommendation-section {
+    max-width: 550px; /* Allow sections to be a bit wider */
+    width: 85%;
+  }
+
+  h1 {
+     font-size: 2.8em;
+  }
+
+  .range-info {
+     flex-direction: row; /* Place circle and text side-by-side */
+     justify-content: center;
+     gap: 2rem;
+  }
+
+  .text-info {
+     text-align: left; /* Align text left when next to circle */
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 992px) {
+  .main-form,
+  .info-section,
+  .optimization-section,
+  .recommendation-section {
+    max-width: 650px; /* Allow even wider sections */
+    padding: 32px; /* Increase padding */
+  }
+
+  h1 {
+    font-size: 3.2em; /* Restore original large size */
+  }
+
+  /* If you wanted a two-column layout on desktop, you'd add rules here, */
+  /* e.g., making the body a grid or flex container for the sections. */
+  /* For now, it keeps the single-column centered layout. */
+
+   .form-row {
+     flex-wrap: nowrap; /* Prevent wrapping on desktop */
+   }
+}
