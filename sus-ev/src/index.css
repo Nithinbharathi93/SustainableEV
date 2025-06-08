@@ -32,6 +32,7 @@ body {
   min-height: 100vh;
   padding: 1rem 0; /* Add some vertical padding */
   box-sizing: border-box; /* Include padding in width/height calculation */
+  flex-wrap: no-wrap;
 }
 
 h1 {
