@@ -1,4 +1,4 @@
-# SustainableEV 🚗⚡
+# SustainableEV
 
 An AI-powered Electric Vehicle (EV) optimization assistant that delivers **real-time, data-driven** route planning and battery usage recommendations. This project strictly relies on live data tools and structured input to generate optimized driving instructions, eliminating assumptions and default behavior.
 
