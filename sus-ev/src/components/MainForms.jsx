@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { MapPin } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useGeolocated } from "react-geolocated";
 import LongInput from './LongInput';
 import ShortInput from './ShortInput';
 import InfoSection from './InfoSection';
@@ -16,6 +16,21 @@ const MainForm = () => {
   const [webResponse, setwebResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [useCurrentLoc, setUseCurrentLoc] = useState(false);
+
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
+    positionOptions: { enableHighAccuracy: false },
+    userDecisionTimeout: 5000,
+  });
+
+  useEffect(() => {
+    if (useCurrentLoc && coords) {
+      setLocation(`${coords.latitude}, ${coords.longitude}`);
+    } else {
+      setLocation("");
+    }
+  }, [useCurrentLoc, coords]);
+
 
   const SERV_URL = import.meta.env.VITE_SERVER_URL;
 
@@ -60,7 +75,21 @@ const MainForm = () => {
   return (
     <>
     <form onSubmit={handleSubmit} className="main-form">
-     <LongInput label="Location" id="location" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Your current location" />
+     <LongInput label="Location" id="location" value={location} placeholder="Your current location" innerButtonState={true} innerButtonFunction={() => setUseCurrentLoc((prev) => !prev)} 
+        onChange={(e) => {
+          setUseCurrentLoc(false);
+          setLocation(e.target.value);
+        }}
+      />
+      {!isGeolocationAvailable && useCurrentLoc && (
+        <div>Your browser does not support Geolocation</div>
+      )}
+      {!isGeolocationEnabled && useCurrentLoc && (
+        <div>Geolocation is not enabled</div>
+      )}
+      {useCurrentLoc && !coords && (
+        <div>Getting the location data&hellip;</div>
+      )}
      <LongInput label="Destination" id="destination" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Your destination" />
      <LongInput label="Vehicle" id="vehicle" value={vehicle} onChange={(e) => setVehicle(e.target.value)} placeholder="Your Vehicle Model" />
 
@@ -109,11 +138,11 @@ const MainForm = () => {
       {webResponse && (
         <ChargeRecommendation
          title="CHARGE RECOMMENDATION"
-         recommendationText={webResponse.next_charge_recommendation || ""}
-         mapUrl={webResponse.map_url}
-         duration={webResponse.duration || ""}
-         routeName={webResponse.summary || ""}
-         distance={webResponse.distance || ""}
+         recommendationText={webResponse.suggested_route_info.next_charge_recommendation || ""}
+         mapUrl={webResponse.suggested_route_info.map_url}
+         duration={webResponse.suggested_route_info.duration || ""}
+         routeName={webResponse.suggested_route_info.summary || ""}
+         distance={webResponse.suggested_route_info.distance || ""}
         />
       )
     }

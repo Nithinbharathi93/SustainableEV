@@ -167,6 +167,20 @@ button:focus-visible {
 }
 
 /* MainForm.css */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.input-wrapper button {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .form-group {
   margin-bottom: 16px;
 }
@@ -200,7 +214,7 @@ button:focus-visible {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap on smaller screens */
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   width: 100%;
 }
 

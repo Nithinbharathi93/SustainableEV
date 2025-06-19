@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1>Sustainable EV</h1>
+      <h1>SUS-EV</h1>
       <MainForm />
     </>
   )
