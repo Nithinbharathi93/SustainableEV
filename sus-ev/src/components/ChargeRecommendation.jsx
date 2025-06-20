@@ -13,7 +13,7 @@ export const ChargeRecommendation = ({
         <div className="route-info">
           <div className="map-frame">
             <iframe
-              src={"https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=10.7698255%2C77.5107993%3B10.8509242%2C77.4465535"}
+              src={mapUrl}
               width="100%"
               height="200"
               style={{ border: 0 }}
